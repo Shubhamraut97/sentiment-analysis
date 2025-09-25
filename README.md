@@ -1,6 +1,18 @@
-sentiment analyisis
+Reddit Sentiment Analysis Project
 
-This repo consist of  experiment to handle imbalanced datasets using various techniques and tracks the results with MLflow. The experiment processes text data from a CSV file, applies TF-IDF vectorization, and evaluates a RandomForestClassifier with different imbalance handling methods.
+This repository contains Jupyter notebooks for a sentiment analysis project on Reddit comments. The project involves data preprocessing, handling imbalanced datasets, and tracking experiments using MLflow with DagsHub integration. The goal is to classify comments into categories (e.g., positive, negative, neutral) while addressing class imbalance issues.
+
+Notebooks
+
+
+
+
+
+pre.ipynb: Handles data loading, cleaning, null value removal, duplicate handling, and basic exploratory data analysis (EDA) including word clouds for different sentiment categories.
+
+
+
+imbalanced_experiment.ipynb (inferred from the MLflow code): Implements experiments for handling imbalanced data using techniques like class weighting, oversampling (SMOTE, ADASYN), undersampling, and combined methods (SMOTEENN). Uses TF-IDF vectorization, RandomForestClassifier, and MLflow for logging parameters, metrics, and artifacts.
 
 Features
 
@@ -8,49 +20,55 @@ Features
 
 
 
-Data Processing: Loads and preprocesses text data from csv file
-
-
-
-Vectorization: Uses TfidfVectorizer with n-grams (1,3) and a maximum of 10,000 features.
-
-
-
-Imbalance Handling: Implements five methods:
+Data Preprocessing (pre.ipynb):
 
 
 
 
 
-Class Weighting (class_weight='balanced')
+Loads data from Reddit_Data.csv with columns clean_comment (text) and category (sentiment labels: 1 for positive, 0 for neutral, -1 for negative).
 
 
 
-SMOTE Oversampling
+Handles missing values (drops rows with NaN in clean_comment).
 
 
 
-Random Undersampling
+Removes duplicates.
 
 
 
-SMOTEENN (Combined SMOTE and Edited Nearest Neighbors)
+Generates word clouds for visualization of common words in positive, negative, and neutral comments.
 
 
 
-ADASYN Oversampling
+Imbalanced Data Handling & Experiments (imbalanced_experiment.ipynb):
 
 
 
-Model Training: Trains a RandomForestClassifier with 200 estimators and a max depth of 15.
+
+
+TF-IDF vectorization with n-grams (1-3) and max 10,000 features.
 
 
 
-Evaluation: Logs accuracy, classification report metrics (precision, recall, f1-score), and confusion matrices to MLflow.
+Stratified train-test split (80-20).
 
 
 
-Tracking: Uses MLflow with DagsHub for experiment tracking, logging parameters, metrics, and artifacts (confusion matrix plots).
+Imbalance techniques: Class weighting, SMOTE, Random Undersampling, SMOTEENN, ADASYN.
+
+
+
+Model: RandomForestClassifier (200 estimators, max depth 15).
+
+
+
+Evaluation: Accuracy, precision, recall, F1-score per class; confusion matrices saved as artifacts.
+
+
+
+MLflow tracking: Logs parameters (e.g., ngram_range, sampler), metrics, and confusion matrix plots to DagsHub.
 
 Requirements
 
@@ -62,13 +80,7 @@ Python 3.12+
 
 
 
-Libraries: mlflow, dagshub, imblearn, scikit-learn, pandas, numpy, seaborn, matplotlib
+Libraries: pandas, numpy, nltk, matplotlib, seaborn, mlflow, dagshub, imbalanced-learn, scikit-learn
 
 
-
-DagsHub account for MLflow tracking
-
-
-
-Input data: processed_data.csv with clean_comment (text) and category (labels) columns
 
